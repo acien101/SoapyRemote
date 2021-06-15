@@ -17,6 +17,7 @@
 #include <SoapySDR/Formats.hpp>
 #include <SoapySDR/Version.hpp>
 #include <iostream>
+#include <stdio.h>
 #include <mutex>
 
 //! The device factory make and unmake requires a process-wide mutex
@@ -336,7 +337,9 @@ bool SoapyClientHandler::handleOnce(SoapyRPCUnpacker &unpacker, SoapyRPCPacker &
         const auto localNode = SoapyURL(_sock.getsockname()).getNode();
         const auto remoteNode = SoapyURL(_sock.getpeername()).getNode();
 
-        const auto bindURL = SoapyURL(prot, localNode, "0").toString();
+        // Print localNode
+        printf("HOLA CARACOLA %s", localNode);
+        const auto bindURL = SoapyURL(prot, localNode, "0").toString();   // Esta funcion es la que hace el bind
         std::string serverBindPort;
 
         //in udp mode connect to the bound sockets on the client side
