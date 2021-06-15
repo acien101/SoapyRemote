@@ -364,7 +364,9 @@ bool SoapyClientHandler::handleOnce(SoapyRPCUnpacker &unpacker, SoapyRPCPacker &
                 throw std::runtime_error("SoapyRemote::setupStream("+bindURL+") -- bind FAIL: " + errorMsg);
             }
             SoapySDR::logf(SOAPY_SDR_INFO, "Server side stream bound to %s", data.streamSock->getsockname().c_str());
-            serverBindPort = SoapyURL(data.streamSock->getsockname()).getService();
+            std::cout << "4 -Server bound to " << data.streamSock->getsockname() << std::endl;
+            std::cout << "5 -Server bound to " << data.streamSock->getsockname().c_str() << std::endl;
+            serverBindPort = SoapyURL(data.streamSock->getsockname()).getService(); // Es probable que sea este
 
             //connect the stream socket to the specified port
             auto connectURL = SoapyURL("udp", remoteNode, clientBindPort).toString();
