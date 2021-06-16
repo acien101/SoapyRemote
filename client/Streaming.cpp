@@ -12,6 +12,7 @@
 #include "SoapyStreamEndpoint.hpp"
 #include <algorithm> //std::min, std::find
 #include <memory> //unique_ptr
+#include <stdio.h>
 
 std::vector<std::string> SoapyRemoteDevice::__getRemoteOnlyStreamFormats(const int direction, const size_t channel) const
 {
