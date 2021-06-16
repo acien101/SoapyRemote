@@ -341,7 +341,8 @@ bool SoapyClientHandler::handleOnce(SoapyRPCUnpacker &unpacker, SoapyRPCPacker &
         const auto bindURL = SoapyURL(prot, localNode, "0").toString();   // Esta funcion es la que hace el bind
         // Print localNode
         //printf("HOLA CARACOLA %s --- %s --- %s\r\n", localNode, _sock.getsockname(), bindURL);
-
+        std::cout << "-1 -Server bound to " << clientBindPort << std::endl;
+        std::cout << "0 -Server bound to " << statusBindPort << std::endl;
         std::cout << "1 -Server bound to " << localNode << std::endl;
         std::cout << "2 -Server bound to " << _sock.getsockname() << std::endl;
         std::cout << "3 -Server bound to " << bindURL << std::endl;
