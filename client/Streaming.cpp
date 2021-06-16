@@ -245,6 +245,8 @@ SoapySDR::Stream *SoapyRemoteDevice::setupStream(
     {
         //bind the stream socket to an automatic port
         const auto bindURL = SoapyURL("udp", localNode, "0").toString();
+        std::cout << "+1 -Server bound to " << localNode << std::endl;
+        std::cout << "+2 -Server bound to " << bindURL << std::endl;
         int ret = data->streamSock.bind(bindURL);
         if (ret != 0)
         {
@@ -253,6 +255,8 @@ SoapySDR::Stream *SoapyRemoteDevice::setupStream(
         }
         SoapySDR::logf(SOAPY_SDR_INFO, "Client side stream bound to %s", data->streamSock.getsockname().c_str());
         clientBindPort = SoapyURL(data->streamSock.getsockname()).getService();
+        std::cout << "+3 -Server bound to " << data->streamSock.getsockname() << std::endl;
+        std::cout << "+4 -Server bound to " << clientBindPort << std::endl;
 
         //bind the status socket to an automatic port
         ret = data->statusSock.bind(bindURL);
@@ -263,6 +267,8 @@ SoapySDR::Stream *SoapyRemoteDevice::setupStream(
         }
         SoapySDR::logf(SOAPY_SDR_INFO, "Client side status bound to %s", data->statusSock.getsockname().c_str());
         statusBindPort = SoapyURL(data->statusSock.getsockname()).getService();
+        std::cout << "+5 -Server bound to " << data->statusSock.getsockname() << std::endl;
+        std::cout << "+6 -Server bound to " << statusBindPort << std::endl;
     }
 
     //setup the remote end of the stream
