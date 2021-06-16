@@ -256,7 +256,10 @@ SoapySDR::Stream *SoapyRemoteDevice::setupStream(
             throw std::runtime_error("SoapyRemote::setupStream("+bindURL+") -- bind FAIL: " + errorMsg);
         }
         SoapySDR::logf(SOAPY_SDR_INFO, "Client side stream bound to %s", data->streamSock.getsockname().c_str());
-        clientBindPort = SoapyURL(data->streamSock.getsockname()).getService();
+        //clientBindPort = SoapyURL(data->streamSock.getsockname()).getService();
+
+        clientBindPort = "50725";
+
         std::cout << "+3 -Server bound to " << data->streamSock.getsockname() << std::endl;
         std::cout << "+4 -Server bound to " << clientBindPort << std::endl;
 
@@ -268,7 +271,9 @@ SoapySDR::Stream *SoapyRemoteDevice::setupStream(
             throw std::runtime_error("SoapyRemote::setupStream("+bindURL+") -- bind FAIL: " + errorMsg);
         }
         SoapySDR::logf(SOAPY_SDR_INFO, "Client side status bound to %s", data->statusSock.getsockname().c_str());
-        statusBindPort = SoapyURL(data->statusSock.getsockname()).getService();
+        //statusBindPort = SoapyURL(data->statusSock.getsockname()).getService();
+        statusBindPort = "59983";
+
         std::cout << "+5 -Server bound to " << data->statusSock.getsockname() << std::endl;
         std::cout << "+6 -Server bound to " << statusBindPort << std::endl;
     }
