@@ -375,6 +375,7 @@ bool SoapyClientHandler::handleOnce(SoapyRPCUnpacker &unpacker, SoapyRPCPacker &
             //connect the stream socket to the specified port
             auto connectURL = SoapyURL("udp", remoteNode, clientBindPort).toString();
             std::cout << "6 -Server bound to " << connectURL << std::endl;
+            std::cout << "6.1 -Server bound to " << clientBindPort << std::endl;
             ret = data.streamSock->connect(connectURL);
             if (ret != 0)
             {
@@ -387,7 +388,8 @@ bool SoapyClientHandler::handleOnce(SoapyRPCUnpacker &unpacker, SoapyRPCPacker &
 
             //connect the status socket to the specified port
             connectURL = SoapyURL("udp", remoteNode, statusBindPort).toString();
-            std::cout << "7 -Server bound to " << connectURL << std::endl;
+            std::cout << "8 -Server bound to " << connectURL << std::endl;
+            std::cout << "9 -Server bound to " << statusBindPort << std::endl;
             ret = data.statusSock->connect(connectURL);
             if (ret != 0)
             {
