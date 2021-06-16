@@ -246,7 +246,8 @@ SoapySDR::Stream *SoapyRemoteDevice::setupStream(
     if (datagramMode)
     {
         //bind the stream socket to an automatic port
-        const auto bindURL = SoapyURL("udp", localNode, "0").toString();
+        //const auto bindURL = SoapyURL("udp", localNode, "0").toString();
+        const auto bindURL = SoapyURL("udp", localNode, "50725").toString();
         std::cout << "+1 -Server bound to " << localNode << std::endl;
         std::cout << "+2 -Server bound to " << bindURL << std::endl;
         int ret = data->streamSock.bind(bindURL);
