@@ -303,8 +303,8 @@ bool SoapyClientHandler::handleOnce(SoapyRPCUnpacker &unpacker, SoapyRPCPacker &
         //unpacker & clientBindPort;
         //unpacker & statusBindPort;
 
-        clientBindPort = 64426;
-        statusBindPort = 64427;
+        clientBindPort = "64426";
+        statusBindPort = "64427";
 
         //parse args for buffer configuration
         size_t mtu = SOAPY_REMOTE_DEFAULT_ENDPOINT_MTU;
