@@ -167,12 +167,12 @@ SoapySDR::Stream *SoapyRemoteDevice::setupStream(
     // Get where the stream and status socket must be binded
     std::string streamSockService = "0";
     std::string statusSockService = "0";
-    SoapyRPCPacker packer(_sock);
-    packer & SOAPY_REMOTE_GET_STREAM_SERVICES;
-    packer();
-    SoapyRPCUnpacker unpacker(_sock);
-    unpacker & streamSockService;
-    unpacker & statusSockService;
+    SoapyRPCPacker packerServices(_sock);
+    packerServices & SOAPY_REMOTE_GET_STREAM_SERVICES;
+    packerServices();
+    SoapyRPCUnpacker unpackerServices(_sock);
+    unpackerServices & streamSockService;
+    unpackerServices & statusSockService;
 
     std::cout << "+100 -Server bound to " << streamSockService << std::endl;
     std::cout << "+101 -Server bound to " << statusSockService << std::endl;
