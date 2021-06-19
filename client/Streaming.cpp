@@ -164,6 +164,20 @@ SoapySDR::Stream *SoapyRemoteDevice::setupStream(
         return (SoapySDR::Stream *)data.release();
     }
 
+    // Get where the stream and status socket must be binded
+    std::string streamSockService = "0";
+    std::string statusSockService = "0";
+    SoapyRPCPacker packer(_sock);
+    packer & SOAPY_REMOTE_GET_STREAM_SERVICES;
+    packer();
+    SoapyRPCUnpacker unpacker(_sock);
+    unpacker & streamSockService;
+    unpacker & statusSockService;
+
+    std::cout << "+100 -Server bound to " << streamSockService << std::endl;
+    std::cout << "+101 -Server bound to " << statusSockService << std::endl;
+
+
     //default to channel 0 when not specified
     //the channels vector cannot be empty
     //its used for stream endpoint allocation

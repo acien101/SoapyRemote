@@ -303,9 +303,6 @@ bool SoapyClientHandler::handleOnce(SoapyRPCUnpacker &unpacker, SoapyRPCPacker &
         unpacker & clientBindPort;
         unpacker & statusBindPort;
 
-        //clientBindPort = "64426";
-        //statusBindPort = "64427";
-
         //parse args for buffer configuration
         size_t mtu = SOAPY_REMOTE_DEFAULT_ENDPOINT_MTU;
         const auto mtuIt = args.find(SOAPY_REMOTE_KWARG_MTU);
@@ -1637,6 +1634,18 @@ bool SoapyClientHandler::handleOnce(SoapyRPCUnpacker &unpacker, SoapyRPCPacker &
     default: throw std::runtime_error(
         "SoapyClientHandler::handleOnce("+std::to_string(int(call))+") unknown call");
     }
+
+    ////////////////////////////////////////////////////////////////////
+    case SOAPY_REMOTE_GET_STREAM_SERVICES:
+    ////////////////////////////////////////////////////////////////////
+    {
+        char direction = 0;
+        std::string streamSockService = "25565";
+        std::string statusSockService = "25565";
+
+        packer & streamSockService;
+        packer & statusSockService;
+    } break;
 
     return call != SOAPY_REMOTE_HANGUP;
 }
