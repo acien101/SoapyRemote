@@ -1631,21 +1631,20 @@ bool SoapyClientHandler::handleOnce(SoapyRPCUnpacker &unpacker, SoapyRPCPacker &
         packer & _dev->readUART(which, long(timeoutUs));
     } break;
 
-    default: throw std::runtime_error(
-        "SoapyClientHandler::handleOnce("+std::to_string(int(call))+") unknown call");
-    }
-
     ////////////////////////////////////////////////////////////////////
     case SOAPY_REMOTE_GET_STREAM_SERVICES:
     ////////////////////////////////////////////////////////////////////
     {
-        char direction = 0;
         std::string streamSockService = "25565";
         std::string statusSockService = "25565";
 
         packer & streamSockService;
         packer & statusSockService;
     } break;
+
+    default: throw std::runtime_error(
+        "SoapyClientHandler::handleOnce("+std::to_string(int(call))+") unknown call");
+    }
 
     return call != SOAPY_REMOTE_HANGUP;
 }
