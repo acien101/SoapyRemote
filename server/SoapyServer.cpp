@@ -23,6 +23,8 @@ static int printHelp(void)
     std::cout << "  Options summary:" << std::endl;
     std::cout << "    --help \t\t\t\t Print this help message" << std::endl;
     std::cout << "    --bind \t\t\t\t Bind and serve forever" << std::endl;
+    std::cout << "    --streamport \t\t\t\t Specify the stream port if not it is selected the first available" << std::endl;
+    std::cout << "    --statusport \t\t\t\t Specify the status port if not it is selected the first available" << std::endl;
     std::cout << std::endl;
     return EXIT_SUCCESS;
 }
@@ -126,6 +128,8 @@ int main(int argc, char *argv[])
     static struct option long_options[] = {
         {"help", no_argument, 0, 'h'},
         {"bind", optional_argument, 0, 'b'},
+        {"streamport", optional_argument, 0, 'b'},
+        {"statusport", optional_argument, 0, 'b'},
         {0, 0, 0,  0}
     };
     int long_index = 0;
