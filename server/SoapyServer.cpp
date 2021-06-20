@@ -49,21 +49,28 @@ static int runServer(void)
     const auto defaultBindNode = isIPv6Supported?"::":"0.0.0.0";
     const int ipVerServices = isIPv6Supported?SOAPY_REMOTE_IPVER_UNSPEC:SOAPY_REMOTE_IPVER_INET;
 
+
     //extract url from user input or generate automatically
     const bool optargHasURL = (optarg != NULL and not std::string(optarg).empty());
     auto url = (optargHasURL)? SoapyURL(optarg) : SoapyURL("tcp", defaultBindNode, "");
+/*
+    int long_index = 0;
+    int option = 0;
 
     // Fetch streamport
     if(option = getopt_long_only(argc, argv, "", long_options, &long_index)) != -1){
-      const bool optargHasURL = (optarg != NULL and not std::string(optarg).empty());
-      auto url = (optargHasURL)? SoapyURL(optarg) : SoapyURL("tcp", defaultBindNode, "");
+      const bool optargHasStreamPort = (optarg != NULL and not std::string(optarg).empty());
+      std::string streamSockService = (optargHasStreamPort)? optarg : "0";
     }
 
     // Status streamport
     if(option = getopt_long_only(argc, argv, "", long_options, &long_index)) != -1){
-      const bool optargHasURL = (optarg != NULL and not std::string(optarg).empty());
-      auto url = (optargHasURL)? SoapyURL(optarg) : SoapyURL("tcp", defaultBindNode, "");
+      const bool optargHasStatusPort = (optarg != NULL and not std::string(optarg).empty());
+      std::string statusSockService = (optargHasStatusPort)? optarg : "0";
     }
+    */
+
+
 
     //default url parameters when not specified
     if (url.getScheme().empty()) url.setScheme("tcp");
@@ -139,20 +146,47 @@ int main(int argc, char *argv[])
      ******************************************************************/
     static struct option long_options[] = {
         {"help", no_argument, 0, 'h'},
-        {"bind", optional_argument, 0, 'b'},
         {"streamport", optional_argument, 0, 'c'},
         {"statusport", optional_argument, 0, 'd'},
+        {"bind", optional_argument, 0, 'b'},
         {0, 0, 0,  0}
     };
+
+    std::string streamSockService = "0";
+    std::string statusSockService = "0";
+
     int long_index = 0;
     int option = 0;
-    while ((option = getopt_long_only(argc, argv, "", long_options, &long_index)) != -1)
+    bool startServer = false;
+    while ((option = getopt_long_only(argc, argv, "c:d:b::", long_options, &long_index)) != -1)
     {
         switch (option)
         {
+        case 'c':
+          {
+            const bool optargHasStreamPort = (optarg != NULL and not std::string(optarg).empty());
+            streamSockService = (optargHasStreamPort)? optarg : "0";
+            std::cout << "Stream Sock service: " << streamSockService << std::endl;
+            std::cout << "Status Sock service: " << statusSockService << std::endl;
+          }
+          break;
+        case 'd':
+          {
+          const bool optargHasStatusPort = (optarg != NULL and not std::string(optarg).empty());
+          statusSockService = (optargHasStatusPort)? optarg : "0";
+          std::cout << "Stream Sock service: " << streamSockService << std::endl;
+          std::cout << "Status Sock service: " << statusSockService << std::endl;
+          }
+          break;
         case 'h': return printHelp();
-        case 'b': return runServer();
+        case 'b':
+          startServer = true;
+          break;
         }
+    }
+
+    if(startServer){
+      return runServer();
     }
 
     //unknown or unspecified options, do help...
