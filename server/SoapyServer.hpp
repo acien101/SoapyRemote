@@ -7,6 +7,10 @@
 #include <thread>
 #include <map>
 
+// Create global variable to services
+extern std::string streamSockService;
+extern std::string statusSockService;
+
 class SoapyRPCSocket;
 
 //! Client handler data

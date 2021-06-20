@@ -42,7 +42,7 @@ void sigIntHandler(const int)
 /***********************************************************************
  * Launch the server
  **********************************************************************/
-static int runServer(std::string argBind, std::string streamSockService, std::string statusSockService)
+static int runServer(std::string argBind)
 {
     SoapySocketSession sess;
     const bool isIPv6Supported = not SoapyRPCSocket(SoapyURL("tcp", "::", "0").toString()).null();
@@ -53,24 +53,6 @@ static int runServer(std::string argBind, std::string streamSockService, std::st
     //extract url from user input or generate automatically
     const bool optargHasURL = not std::string(argBind).empty();
     auto url = (optargHasURL)? SoapyURL(argBind) : SoapyURL("tcp", defaultBindNode, "");
-/*
-    int long_index = 0;
-    int option = 0;
-
-    // Fetch streamport
-    if(option = getopt_long_only(argc, argv, "", long_options, &long_index)) != -1){
-      const bool optargHasStreamPort = (optarg != NULL and not std::string(optarg).empty());
-      std::string streamSockService = (optargHasStreamPort)? optarg : "0";
-    }
-
-    // Status streamport
-    if(option = getopt_long_only(argc, argv, "", long_options, &long_index)) != -1){
-      const bool optargHasStatusPort = (optarg != NULL and not std::string(optarg).empty());
-      std::string statusSockService = (optargHasStatusPort)? optarg : "0";
-    }
-    */
-
-
 
     //default url parameters when not specified
     if (url.getScheme().empty()) url.setScheme("tcp");
@@ -188,7 +170,7 @@ int main(int argc, char *argv[])
     }
 
     if(startServer){
-      return runServer(argBind, streamSockService, statusSockService);
+      return runServer(argBind);
     }
 
     //unknown or unspecified options, do help...

@@ -12,6 +12,7 @@
 #include "SoapyRPCPacker.hpp"
 #include "SoapyRPCUnpacker.hpp"
 #include "SoapyStreamEndpoint.hpp"
+#include "SoapyServer.hpp"
 #include <SoapySDR/Device.hpp>
 #include <SoapySDR/Logger.hpp>
 #include <SoapySDR/Formats.hpp>
@@ -19,6 +20,9 @@
 #include <iostream>
 #include <stdio.h>
 #include <mutex>
+
+std::string streamSockService;
+std::string statusSockService;
 
 //! The device factory make and unmake requires a process-wide mutex
 static std::mutex factoryMutex;
@@ -1635,10 +1639,7 @@ bool SoapyClientHandler::handleOnce(SoapyRPCUnpacker &unpacker, SoapyRPCPacker &
     case SOAPY_REMOTE_GET_STREAM_SERVICES:
     ////////////////////////////////////////////////////////////////////
     {
-        std::string streamSockService = "25565";
-        std::string statusSockService = "25565";
-
-        packer & streamSockService;
+        packer & streamSockService;   //Global variable
         packer & statusSockService;
     } break;
 
