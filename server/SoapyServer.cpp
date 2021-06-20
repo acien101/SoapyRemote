@@ -53,6 +53,18 @@ static int runServer(void)
     const bool optargHasURL = (optarg != NULL and not std::string(optarg).empty());
     auto url = (optargHasURL)? SoapyURL(optarg) : SoapyURL("tcp", defaultBindNode, "");
 
+    // Fetch streamport
+    if(option = getopt_long_only(argc, argv, "", long_options, &long_index)) != -1){
+      const bool optargHasURL = (optarg != NULL and not std::string(optarg).empty());
+      auto url = (optargHasURL)? SoapyURL(optarg) : SoapyURL("tcp", defaultBindNode, "");
+    }
+
+    // Status streamport
+    if(option = getopt_long_only(argc, argv, "", long_options, &long_index)) != -1){
+      const bool optargHasURL = (optarg != NULL and not std::string(optarg).empty());
+      auto url = (optargHasURL)? SoapyURL(optarg) : SoapyURL("tcp", defaultBindNode, "");
+    }
+
     //default url parameters when not specified
     if (url.getScheme().empty()) url.setScheme("tcp");
     if (url.getService().empty()) url.setService(SOAPY_REMOTE_DEFAULT_SERVICE);
@@ -128,8 +140,8 @@ int main(int argc, char *argv[])
     static struct option long_options[] = {
         {"help", no_argument, 0, 'h'},
         {"bind", optional_argument, 0, 'b'},
-        {"streamport", optional_argument, 0, 'b'},
-        {"statusport", optional_argument, 0, 'b'},
+        {"streamport", optional_argument, 0, 'c'},
+        {"statusport", optional_argument, 0, 'd'},
         {0, 0, 0,  0}
     };
     int long_index = 0;
