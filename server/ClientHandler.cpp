@@ -336,7 +336,7 @@ bool SoapyClientHandler::handleOnce(SoapyRPCUnpacker &unpacker, SoapyRPCPacker &
         const auto localNode = SoapyURL(_sock.getsockname()).getNode();
         const auto remoteNode = SoapyURL(_sock.getpeername()).getNode();
 
-        const auto bindURL = SoapyURL(prot, localNode, "0").toString();
+        const auto bindURL = SoapyURL(prot, localNode, "25566").toString();
         std::string serverBindPort;
 
         //in udp mode connect to the bound sockets on the client side
